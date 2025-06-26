@@ -13,7 +13,7 @@ const router = useRouter()
 onMounted(() => {
   map.value = new maplibregl.Map({
     container: mapContainer.value,
-    style: 'https://tiles.stadiamaps.com/styles/osm_bright.json',
+    style: 'https://api.maptiler.com/maps/streets/style.json?key=xnrstKe3MYfHpaUMXusH',
     center: [30.5234, 50.4501],
     zoom: 12,
   })
