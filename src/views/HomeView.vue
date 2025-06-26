@@ -1,4 +1,5 @@
 <script setup>
+import { watch } from 'vue'
 import { usePropertyStore } from '../stores/propertyStore'
 import PropertyCard from '@/components/PropertyCard.vue'
 import { useRouter } from 'vue-router'
@@ -9,6 +10,13 @@ const store = usePropertyStore()
 function goToProperty(id) {
   router.push({ name: 'property', params: { id } })
 }
+
+watch(
+  () => store.searchQuery,
+  () => {
+    store.currentPage = 1
+  },
+)
 </script>
 
 <template>
@@ -36,7 +44,10 @@ function goToProperty(id) {
         v-for="page in store.totalPages"
         :key="page"
         @click="store.setPage(page)"
-        :class="[ 'mx-1 px-4 py-2 rounded', store.currentPage === page ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300' ]"
+        :class="[
+          'mx-1 px-4 py-2 rounded',
+          store.currentPage === page ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300',
+        ]"
       >
         {{ page }}
       </button>
